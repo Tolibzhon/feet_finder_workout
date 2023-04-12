@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, use_key_in_widget_constructors
 
 // import 'package:apphud/apphud.dart';
+import 'package:feet_finder_workout/auth/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 // import 'package:rate_my_app/rate_my_app.dart';
@@ -101,7 +102,7 @@ class _MyAppState extends State<MyApp> {
         splashFactory: NoSplash.splashFactory,
         highlightColor: Colors.transparent,
       ),
-      home: const Scaffold(),
+      home: SplashScreen(),
     );
   }
 }
