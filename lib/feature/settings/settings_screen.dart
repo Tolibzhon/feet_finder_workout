@@ -30,7 +30,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               WidgetSettingsRow(
                   icon: AppImages.favouriteIcon,
-                  text: "My projects",
+                  text: "Favourite",
                   onTap: () {
                     Navigator.push(
                       context,

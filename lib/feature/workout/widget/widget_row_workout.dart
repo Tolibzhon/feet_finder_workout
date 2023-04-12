@@ -2,11 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:feet_finder_workout/core/app_colors.dart';
 import 'package:feet_finder_workout/core/app_text_styles.dart';
 import 'package:feet_finder_workout/feature/workout/detail_workout_screen.dart';
+import 'package:feet_finder_workout/logic/model/workout_model.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class WidgetWorkoutRow extends StatelessWidget {
-  const WidgetWorkoutRow({Key? key}) : super(key: key);
+  const WidgetWorkoutRow({Key? key, required this.model}) : super(key: key);
+  final WorkoutModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +17,16 @@ class WidgetWorkoutRow extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const DetailWorkoutScreen(),
+            builder: (context) => DetailWorkoutScreen(
+              model: model,
+            ),
           ),
         );
       },
       child: Row(
         children: [
           CachedNetworkImage(
-              imageUrl: "https://autodmir.ru/logo/1/2312/photo.jpg",
+              imageUrl: model.image,
               placeholder: (_, url) {
                 return SizedBox(
                   width: 162,
@@ -46,8 +50,7 @@ class WidgetWorkoutRow extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
                     image: DecorationImage(
-                      image: NetworkImage(
-                          "https://autodmir.ru/logo/1/2312/photo.jpg"),
+                      image: NetworkImage(model.image),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -59,14 +62,14 @@ class WidgetWorkoutRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Workout plan for \nbeginners",
+                  model.title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.s19W700(color: Colors.black),
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  "4 min",
+                  model.duration,
                   style:
                       AppTextStyles.s15W700(color: AppColors.colorFF2ECFPink),
                 ),

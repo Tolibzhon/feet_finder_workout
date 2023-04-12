@@ -2,18 +2,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:feet_finder_workout/core/app_colors.dart';
 import 'package:feet_finder_workout/core/app_text_styles.dart';
 import 'package:feet_finder_workout/feature/plan/start_screen.dart';
+import 'package:feet_finder_workout/logic/model/plan_model.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class WidgetRow extends StatelessWidget {
-  const WidgetRow({Key? key}) : super(key: key);
+  const WidgetRow({Key? key, required this.model, required this.index})
+      : super(key: key);
+  final Workouts model;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         CachedNetworkImage(
-            imageUrl: "https://autodmir.ru/logo/1/2312/photo.jpg",
+            imageUrl: model.image,
             placeholder: (_, url) {
               return SizedBox(
                 width: 124,
@@ -37,8 +41,7 @@ class WidgetRow extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   image: DecorationImage(
-                    image: NetworkImage(
-                        "https://autodmir.ru/logo/1/2312/photo.jpg"),
+                    image: NetworkImage(model.image),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -49,29 +52,31 @@ class WidgetRow extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "1",
+              index.toString(),
               style: AppTextStyles.s19W700(color: Colors.black),
             ),
             const SizedBox(height: 8),
             Text(
-              "Workout plan for \nbeginners",
+              model.title,
               style: AppTextStyles.s19W700(color: Colors.black),
             ),
             const SizedBox(height: 8),
             Text(
-              "4 min",
+              model.duration,
               style: AppTextStyles.s15W700(color: AppColors.colorFF2ECFPink),
             ),
             const SizedBox(height: 8),
             Row(
               children: [
-                SizedBox(width: 60),
+                const SizedBox(width: 60),
                 InkWell(
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const StartScreen(),
+                        builder: (context) => StartScreen(
+                          model: model,
+                        ),
                       ),
                     );
                   },

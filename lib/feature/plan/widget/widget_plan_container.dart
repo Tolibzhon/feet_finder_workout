@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:feet_finder_workout/core/app_colors.dart';
 import 'package:feet_finder_workout/core/app_text_styles.dart';
 import 'package:feet_finder_workout/feature/plan/detail_plan_screen.dart';
+import 'package:feet_finder_workout/logic/model/plan_model.dart';
 import 'package:feet_finder_workout/widgets/spaces.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,9 @@ import 'package:shimmer/shimmer.dart';
 class WidgetPlanContainer extends StatelessWidget {
   const WidgetPlanContainer({
     Key? key,
+    required this.model,
   }) : super(key: key);
+  final PlanModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,9 @@ class WidgetPlanContainer extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const DetailPlanScreen(),
+            builder: (context) => DetailPlanScreen(
+              model: model,
+            ),
           ),
         );
       },
@@ -38,7 +43,7 @@ class WidgetPlanContainer extends StatelessWidget {
           ),
         ),
         child: CachedNetworkImage(
-          imageUrl: "https://autodmir.ru/logo/1/2312/photo.jpg",
+          imageUrl: model.image,
           placeholder: (_, url) {
             return SizedBox(
               width: getWidth(context),
@@ -64,8 +69,7 @@ class WidgetPlanContainer extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
                     image: DecorationImage(
-                      image: NetworkImage(
-                          "https://autodmir.ru/logo/1/2312/photo.jpg"),
+                      image: NetworkImage(model.image),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -90,14 +94,16 @@ class WidgetPlanContainer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "7 minute\nworkout",
+                        model.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: AppTextStyles.s32W500(
                           color: Colors.white,
                         ),
                       ),
                       const Spacer(),
                       Text(
-                        "developed according to ACSM research, improves physical fitness",
+                        model.subtitle,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: AppTextStyles.s15W400(color: Colors.white),

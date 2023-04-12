@@ -1,17 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:feet_finder_workout/auth/premium_screen.dart';
 import 'package:feet_finder_workout/config/check_premium.dart';
-import 'package:feet_finder_workout/core/app_colors.dart';
 import 'package:feet_finder_workout/core/app_images.dart';
 import 'package:feet_finder_workout/core/app_text_styles.dart';
 import 'package:feet_finder_workout/feature/plan/widget/widget_row.dart';
+import 'package:feet_finder_workout/logic/model/plan_model.dart';
 import 'package:feet_finder_workout/widgets/custom_button.dart';
 import 'package:feet_finder_workout/widgets/spaces.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class DetailPlanScreen extends StatelessWidget {
-  const DetailPlanScreen({Key? key}) : super(key: key);
+  const DetailPlanScreen({Key? key, required this.model}) : super(key: key);
+  final PlanModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +21,9 @@ class DetailPlanScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: BackButton(color: Colors.black),
+        leading: const BackButton(color: Colors.black),
         title: Text(
-          "7 minute workout",
+          model.title,
           style: AppTextStyles.s19W700(color: Colors.black),
         ),
       ),
@@ -31,7 +32,7 @@ class DetailPlanScreen extends StatelessWidget {
         child: Column(
           children: [
             CachedNetworkImage(
-                imageUrl: "https://autodmir.ru/logo/1/2312/photo.jpg",
+                imageUrl: model.image,
                 placeholder: (_, url) {
                   return SizedBox(
                     width: getWidth(context),
@@ -55,8 +56,7 @@ class DetailPlanScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       image: DecorationImage(
-                        image: NetworkImage(
-                            "https://autodmir.ru/logo/1/2312/photo.jpg"),
+                        image: NetworkImage(model.image),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -64,60 +64,64 @@ class DetailPlanScreen extends StatelessWidget {
                 }),
             const SizedBox(height: 12),
             Text(
-              "developed according to ACSM research, improves physical fitness",
+              model.subtitle,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: AppTextStyles.s15W400(color: Colors.black),
             ),
             const SizedBox(height: 12),
             FutureBuilder(
-                future: CheckPremium.getSubscription(),
-                builder: (context, AsyncSnapshot<bool?> snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data!) {
-                      return Expanded(
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) => WidgetRow(),
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(height: 20),
-                          itemCount: 6,
+              future: CheckPremium.getSubscription(),
+              builder: (context, AsyncSnapshot<bool?> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!) {
+                    return Expanded(
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) => WidgetRow(
+                          model: model.workouts[index],
+                          index: index + 1,
                         ),
-                      );
-                    }
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 20),
+                        itemCount: model.workouts.length,
+                      ),
+                    );
                   }
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 35),
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 32),
-                        Image.asset(
-                          AppImages.lockIcon,
-                          width: 56,
-                        ),
-                        const SizedBox(height: 32),
-                        Text(
-                          "Need Premium access",
-                          style: AppTextStyles.s19W700(),
-                        ),
-                        const SizedBox(height: 12),
-                        CustomButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const PremiumScreen(isPop: true),
-                              ),
-                            );
-                          },
-                          icon: AppImages.crownIcon,
-                          text: "Buy Premium for \$0,99",
-                        )
-                      ],
-                    ),
-                  );
-                }),
+                }
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 35),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 32),
+                      Image.asset(
+                        AppImages.lockIcon,
+                        width: 56,
+                      ),
+                      const SizedBox(height: 32),
+                      Text(
+                        "Need Premium access",
+                        style: AppTextStyles.s19W700(),
+                      ),
+                      const SizedBox(height: 12),
+                      CustomButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const PremiumScreen(isPop: true),
+                            ),
+                          );
+                        },
+                        icon: AppImages.crownIcon,
+                        text: "Buy Premium for \$0,99",
+                      )
+                    ],
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
