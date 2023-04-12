@@ -31,6 +31,11 @@ abstract class AppTextStyles {
         fontWeight: FontWeight.w400,
         color: color,
       );
+  static s13W700({Color? color}) => TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
+        color: color,
+      );
   static s14W400({Color? color}) => TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,

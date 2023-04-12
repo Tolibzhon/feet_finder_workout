@@ -1,4 +1,5 @@
 import 'package:feet_finder_workout/core/app_text_styles.dart';
+import 'package:feet_finder_workout/feature/plan/widget/widget_plan_container.dart';
 import 'package:flutter/material.dart';
 
 class PlanScreen extends StatelessWidget {
@@ -18,6 +19,16 @@ class PlanScreen extends StatelessWidget {
                 'Plan',
                 style: AppTextStyles.s19W700(
                   color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Expanded(
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => WidgetPlanContainer(),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 20),
+                  itemCount: 6,
                 ),
               ),
             ],

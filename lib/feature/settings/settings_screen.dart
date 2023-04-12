@@ -3,6 +3,7 @@ import 'package:feet_finder_workout/config/app_config.dart';
 import 'package:feet_finder_workout/config/check_premium.dart';
 import 'package:feet_finder_workout/core/app_images.dart';
 import 'package:feet_finder_workout/core/app_text_styles.dart';
+import 'package:feet_finder_workout/feature/settings/favorite_screen.dart';
 import 'package:feet_finder_workout/feature/settings/widget/widget_settings_row.dart';
 import 'package:feet_finder_workout/web_view_screen.dart';
 import 'package:feet_finder_workout/widgets/custom_button.dart';
@@ -31,12 +32,12 @@ class SettingsScreen extends StatelessWidget {
                   icon: AppImages.favouriteIcon,
                   text: "My projects",
                   onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const MyProjectScreen(),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const FavoriteScreen(),
+                      ),
+                    );
                   }),
               WidgetSettingsRow(
                 icon: AppImages.privacyIcon,

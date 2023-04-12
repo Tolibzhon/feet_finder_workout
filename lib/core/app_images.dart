@@ -1,4 +1,6 @@
 class AppImages {
+  AppImages._();
+
   static const String crownIcon = 'assets/images/crownIcon.png';
   static const String favouriteIcon = 'assets/images/favouriteIcon.png';
   static const String iPhone14 = 'assets/images/iPhone 14.png';
@@ -20,6 +22,7 @@ class AppImages {
   static const String privacyIcon = 'assets/images/privacyIcon.png';
   static const String rateIcon = 'assets/images/rateIcon.png';
   static const String restoreIcon = 'assets/images/restoreIcon.png';
+  static const String saveActiveIcon = 'assets/images/saveActiveIcon.png';
   static const String saveIcon = 'assets/images/saveIcon.png';
   static const String termsIcon = 'assets/images/termsIcon.png';
 }
