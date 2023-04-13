@@ -74,6 +74,26 @@ class StartScreen extends StatelessWidget {
                               color: AppColors.colorFF2ECFPink),
                         ),
                       ),
+                    ),
+                    Positioned(
+                      top: 56,
+                      left: 20,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(41),
+                        ),
+                        child: Text(
+                          '${model.calories} calories',
+                          style: AppTextStyles.s15W700(
+                              color: AppColors.colorFF2ECFPink),
+                        ),
+                      ),
                     )
                   ],
                 );

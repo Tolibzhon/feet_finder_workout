@@ -1,3 +1,4 @@
+import 'package:feet_finder_workout/core/local_liked_ds.dart';
 import 'package:feet_finder_workout/logic/model/workout_model.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,9 +30,23 @@ class GetWorkoutsCubit extends Cubit<GetWorkoutsState> {
     }
   }
 
+  Future<void> getFavoriteWorkouts() async {
+    emit(const GetWorkoutsState.loading());
+    try {
+      final workouts = await getWorkoutsFromServer();
+
+      workouts.removeWhere((e) => !e.isLiked);
+
+      emit(GetWorkoutsState.success(workouts));
+    } catch (e) {
+      emit(GetWorkoutsState.error(e.toString()));
+      throw Exception(e);
+    }
+  }
+
   Future<List<WorkoutModel>> getWorkoutsFromServer() async {
     final snapshot = await FirebaseDatabase.instance.ref('workouts').get();
-
+    final likedPosts = await LocalLikedPosts.getLikedPosts();
     final workoutsFromServer = <WorkoutModel>[];
     if (snapshot.value != null) {
       final map = snapshot.value as Map<dynamic, dynamic>;
@@ -42,6 +57,11 @@ class GetWorkoutsCubit extends Cubit<GetWorkoutsState> {
 
         workoutsFromServer.add(workout);
       });
+    }
+    for (var workout in workoutsFromServer) {
+      if (likedPosts.contains(workout.id)) {
+        workout.isLiked = true;
+      }
     }
     return workoutsFromServer;
   }

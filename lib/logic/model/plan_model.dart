@@ -59,7 +59,8 @@ class Workouts {
 
   Workouts.fromJson(Map<dynamic, dynamic> json) {
     title = json['title'];
-    image = json['image'];
+    // image = json['image'];
+    image = "https://autodmir.ru/logo/1/2312/photo.jpg";
     duration = json['duration'];
     calories = json['calories'];
     description = json['description'];

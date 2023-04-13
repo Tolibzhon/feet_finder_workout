@@ -7,6 +7,7 @@ class WorkoutModel {
   late final String category;
   late String? id;
   late bool isPro;
+  late bool isLiked;
 
   WorkoutModel({
     required this.title,
@@ -17,11 +18,13 @@ class WorkoutModel {
     required this.category,
     this.id,
     this.isPro = false,
+    this.isLiked = false,
   });
 
   WorkoutModel.fromJson(Map<dynamic, dynamic> json) {
     id = json['id'];
     isPro = false;
+    isLiked = false;
     title = json['title'];
     // image = json['image'];
     image = "https://autodmir.ru/logo/1/2312/photo.jpg";
