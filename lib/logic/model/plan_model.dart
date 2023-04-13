@@ -20,8 +20,8 @@ class PlanModel {
     isPro = false;
     title = json['title'];
     subtitle = json['subtitle'];
-    // image = json['image'];
-    image = "https://autodmir.ru/logo/1/2312/photo.jpg";
+    image = json['image'];
+    // image = "https://autodmir.ru/logo/1/2312/photo.jpg";
     workouts = <Workouts>[];
     if (json['workouts'] != null) {
       json['workouts'].forEach((v) {
@@ -59,8 +59,8 @@ class Workouts {
 
   Workouts.fromJson(Map<dynamic, dynamic> json) {
     title = json['title'];
-    // image = json['image'];
-    image = "https://autodmir.ru/logo/1/2312/photo.jpg";
+    image = json['image'];
+    // image = "https://autodmir.ru/logo/1/2312/photo.jpg";
     duration = json['duration'];
     calories = json['calories'];
     description = json['description'];

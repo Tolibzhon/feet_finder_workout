@@ -26,8 +26,8 @@ class WorkoutModel {
     isPro = false;
     isLiked = false;
     title = json['title'];
-    // image = json['image'];
-    image = "https://autodmir.ru/logo/1/2312/photo.jpg";
+    image = json['image'];
+    // image = "https://autodmir.ru/logo/1/2312/photo.jpg";
     duration = json['duration'];
     calories = json['calories'];
     description = json['description'];

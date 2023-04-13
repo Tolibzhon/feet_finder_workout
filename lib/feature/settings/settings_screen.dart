@@ -1,6 +1,7 @@
 import 'package:feet_finder_workout/auth/premium_screen.dart';
 import 'package:feet_finder_workout/config/app_config.dart';
 import 'package:feet_finder_workout/config/check_premium.dart';
+import 'package:feet_finder_workout/config/check_restore.dart';
 import 'package:feet_finder_workout/core/app_images.dart';
 import 'package:feet_finder_workout/core/app_text_styles.dart';
 import 'package:feet_finder_workout/feature/settings/favorite_screen.dart';
@@ -72,12 +73,7 @@ class SettingsScreen extends StatelessWidget {
               WidgetSettingsRow(
                 icon: AppImages.restoreIcon,
                 text: 'Restore purchase',
-                onTap: () {},
-              ),
-              WidgetSettingsRow(
-                icon: AppImages.rateIcon,
-                text: 'Rate our app',
-                onTap: () {},
+                onTap: () => CheckRestore.checkRestore(context),
               ),
               const SizedBox(height: 25),
               FutureBuilder(

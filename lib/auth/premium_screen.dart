@@ -1,5 +1,6 @@
 import 'package:feet_finder_workout/config/app_config.dart';
 import 'package:feet_finder_workout/config/check_premium.dart';
+import 'package:feet_finder_workout/config/check_restore.dart';
 import 'package:feet_finder_workout/core/app_colors.dart';
 import 'package:feet_finder_workout/core/app_images.dart';
 import 'package:feet_finder_workout/core/app_text_styles.dart';
@@ -55,10 +56,13 @@ class PremiumScreen extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  Text(
-                    "Restore",
-                    style:
-                        AppTextStyles.s19W700(color: AppColors.colorFF2ECFPink),
+                  InkWell(
+                    onTap: () => CheckRestore.checkRestore(context),
+                    child: Text(
+                      "Restore",
+                      style: AppTextStyles.s19W700(
+                          color: AppColors.colorFF2ECFPink),
+                    ),
                   )
                 ],
               ),
@@ -118,7 +122,7 @@ class PremiumScreen extends StatelessWidget {
               const SizedBox(height: 24),
               CustomButton(
                 icon: AppImages.crownIcon,
-                text: 'Buy Premium for \$1.99',
+                text: 'Buy Premium for \$0.99',
                 onPressed: () async {
                   await CheckPremium.setSubscription();
                   Navigator.pushAndRemoveUntil(
