@@ -1,8 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:feet_finder_workout/core/app_colors.dart';
 import 'package:feet_finder_workout/core/app_text_styles.dart';
+import 'package:feet_finder_workout/core/date_formats.dart';
+import 'package:feet_finder_workout/core/local_db.dart';
 import 'package:feet_finder_workout/logic/model/plan_model.dart';
+import 'package:feet_finder_workout/widgets/buttom_navigator.dart';
+import 'package:feet_finder_workout/widgets/custom_button.dart';
 import 'package:feet_finder_workout/widgets/spaces.dart';
+import 'package:feet_finder_workout/widgets/styled_toasts.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -101,10 +106,52 @@ class StartScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                model.description,
-                textAlign: TextAlign.left,
-                style: AppTextStyles.s15W400(color: Colors.black),
+              child: Column(
+                children: [
+                  Text(
+                    model.description,
+                    textAlign: TextAlign.left,
+                    style: AppTextStyles.s15W400(color: Colors.black),
+                  ),
+                  const SizedBox(height: 20),
+                  FutureBuilder(
+                    future: SavedData.getTitles(),
+                    builder: (context, AsyncSnapshot<List<String>?> snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data!.contains(model.title)) {
+                          return const SizedBox();
+                        }
+                      }
+                      return CustomButton(
+                        text: 'Finish',
+                        onPressed: () async {
+                          await SavedData.setCalosies(
+                            model.calories,
+                          );
+                          await SavedData.setTimes(30);
+                          await SavedData.setTitles(
+                            model.title,
+                          );
+                          await SavedData.setDates(
+                            dayMont.format(
+                              DateTime.now(),
+                            ),
+                          );
+                          showSuccessSnackBar('Finished');
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const BottomNavigatorScreen(),
+                            ),
+                            (protected) => false,
+                          );
+                        },
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                ],
               ),
             )
           ],
