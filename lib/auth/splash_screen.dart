@@ -13,7 +13,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 1), () {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
@@ -32,12 +32,12 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         width: getWidth(context),
         height: height2,
-        decoration: BoxDecoration(
-          image: const DecorationImage(
-            image: AssetImage(AppImages.iPhone14),
-            fit: BoxFit.cover,
-          ),
-        ),
+        // decoration: BoxDecoration(
+        //   image: const DecorationImage(
+        //     image: AssetImage(AppImages.iPhone14),
+        //     fit: BoxFit.cover,
+        //   ),
+        // ),
       ),
     );
   }
